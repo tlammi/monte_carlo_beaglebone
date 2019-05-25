@@ -1,0 +1,7 @@
+bin/
+build/
+html/
+latex/
+CMakeFiles/
+CMakeCache.txt
+Makefile
