@@ -15,28 +15,28 @@ void deallocate(int32_t* ptr) {
     delete[] ptr;
 }
 
-int elemvise_add(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count){
+int elemwise_add(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count){
     for(size_t i=0; i < elem_count; i++){
         outbuf[i] = inbuf1[i] + inbuf2[i];
     }
     return 0;
 }
 
-int elemvise_sub(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count){
+int elemwise_sub(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count){
     for(size_t i=0; i < elem_count; i++){
         outbuf[i] = inbuf1[i] - inbuf2[i];
     }
     return 0;
 }
 
-int elemvise_mul(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count){
+int elemwise_mul(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count){
     for(size_t i=0; i < elem_count; i++){
         outbuf[i] = inbuf1[i] * inbuf2[i];
     }
     return 0;
 }
 
-int elemvise_div(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count){
+int elemwise_div(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count){
     for(size_t i=0; i < elem_count; i++){
         outbuf[i] = inbuf1[i] / inbuf2[i];
     }
