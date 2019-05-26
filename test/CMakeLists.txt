@@ -6,7 +6,7 @@ if(TARGET_DEV STREQUAL "LINUX_AMD64")
 
     add_executable(unittest EXCLUDE_FROM_ALL ${test_source_files})
     target_link_libraries(unittest mc)
-
+    include_directories("${PROJECT_SOURCE_DIR}")
     string(TOLOWER ${TARGET_DEV} DEPLOY_DIR)
 
     add_custom_command(TARGET unittest

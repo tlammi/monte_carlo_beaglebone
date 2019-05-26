@@ -15,6 +15,19 @@ static inline uint32_t _gen_random(){
     return sample;
 }
 
+static int32_t* binary_search(int32_t searched_value, int32_t* buffer_start, int32_t* buffer_end){
+#pragma message("TODO: Implement binary_search().")
+    int32_t* ptr;
+    for(ptr=buffer_start; ptr <= buffer_end-1; ptr++){
+        if(*ptr == searched_value) return ptr;
+        if(*ptr < searched_value && *(ptr+1) > searched_value) return ptr;
+    }
+    if(*buffer_start > searched_value) return buffer_start;
+    if(*buffer_end == searched_value) return buffer_end;
+
+    return nullptr;
+}
+
 int init(){
     random_seed = 0;
 }
@@ -29,10 +42,16 @@ int generate_uniform(const int32_t uniform_start, const int32_t uniform_end, int
     }
     return 0;
 }
-int generate_from_pdf(int32_t* ppdf_values, int32_t* ppdf_weights, size_t pdf_elem_count, int32_t* sample_buffer, size_t buffer_elem_count){
-    return 0;
-}
-int generate_from_cpdf(int32_t* cpdf_values, int32_t* cpdf_weights, size_t cpdf_elem_count, int32_t* sample_buffer, size_t buffer_elem_count){
+
+int generate_from_cpdf(int32_t* cpdf_values, int32_t* cpdf_weights, const size_t cpdf_elem_count, int32_t* sample_buffer, const size_t buffer_elem_count){
+    int res = generate_uniform(0, cpdf_weights[cpdf_elem_count-1], sample_buffer, buffer_elem_count);
+    if(res != 0) return res;
+
+    for(size_t i=0; i < buffer_elem_count; i++){
+        int32_t* ptr = binary_search(sample_buffer[i], cpdf_weights, &cpdf_weights[cpdf_elem_count-1]);
+        sample_buffer[i] = cpdf_values[ptr-cpdf_weights];
+    }
+
     return 0;
 }
 }
