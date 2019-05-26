@@ -1,7 +1,10 @@
+.vscode/
 bin/
 build/
 html/
 latex/
+include/buildcntrl.hpp
 CMakeFiles/
 CMakeCache.txt
 Makefile
+cmake_install.cmake

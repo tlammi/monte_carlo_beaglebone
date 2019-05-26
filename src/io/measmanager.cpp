@@ -1,6 +1,6 @@
 /// Copyright 2019 tlammi
 
-#include "measmanager.hpp"
+#include "io/measmanager.hpp"
 
 namespace io {
 MeasManager::MeasManager() {
