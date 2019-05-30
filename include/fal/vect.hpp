@@ -33,7 +33,8 @@ namespace vect{
  * @param elems Number of elements to be alloated
  * @return Pointer to the allocated memory
  */
-int32_t* allocate(size_t elems);
+template<class T>
+extern T* allocate(size_t elems);
 
 /**
  * @brief Deallocate previously allocated memory
@@ -46,7 +47,8 @@ int32_t* allocate(size_t elems);
  * @param ptr Pointer to memory to be freed and previously allocated
  *      with allocate().
  */
-void deallocate(int32_t* ptr);
+template<class T>
+extern void deallocate(T* ptr);
 
 /**
  * @brief Elementwise add operation for two arrays
@@ -60,7 +62,8 @@ void deallocate(int32_t* ptr);
  *      index elem_count-1
  * @return 0 on success, <0 on error, >0 on warning
  */
-int elemwise_add(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count);
+int elemwise_add(const int32_t* inbuf1, const int32_t* inbuf2, int64_t* outbuf, size_t elem_count);
+int elemwise_add(int32_t scalar, const int32_t* inbuf, int64_t* outbuf, size_t elem_count);
 
 /**
  * @brief Elementwise subtraction of two arrays
@@ -72,7 +75,9 @@ int elemwise_add(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, 
  * @param elem_count Number of elements operated on counting from the start of array.
  * @return 0 on success, <0 on error, >0 on warning
  */
-int elemwise_sub(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count);
+int elemwise_sub(const int32_t* inbuf1, const int32_t* inbuf2, int64_t* outbuf, size_t elem_count);
+int elemwise_sub(int32_t scalar, const int32_t* inbuf, int64_t* outbuf, size_t elem_count);
+int elemwise_sub(const int32_t* inbuf, int32_t scalar, int64_t* outbuf, size_t elem_count);
 
 /**
  * @brief Elementwise multiplication of two arrays
@@ -84,7 +89,8 @@ int elemwise_sub(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, 
  * @param elem_count Number of elements operated on counting from the start of array
  * @return 0 on success, <0 on error, >0 warning
  */
-int elemwise_mul(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count);
+int elemwise_mul(const int32_t* inbuf1, const int32_t* inbuf2, int64_t* outbuf, size_t elem_count);
+int elemwise_mul(int32_t scalar, const int32_t* inbuf, int64_t* outbuf, size_t elem_count);
 
 /**
  * @brief Elementwise division of two arrays
@@ -97,6 +103,8 @@ int elemwise_mul(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, 
  * @return 0 on success, <0 on error, >0 on warning
  */
 int elemwise_div(const int32_t* inbuf1, const int32_t* inbuf2, int32_t* outbuf, size_t elem_count);
+int elemwise_div(int32_t scalar, const int32_t* inbuf, int32_t* outbuf, size_t elem_count);
+int elemwise_div(const int32_t* inbuf, int32_t scalar, int32_t* outbuf, size_t elem_count);
 
 }
 }
