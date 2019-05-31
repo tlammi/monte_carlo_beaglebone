@@ -69,7 +69,7 @@ int generate_uniform(const int32_t uniform_start, const int32_t uniform_end, int
  * @return 0 upon success, >0 on warning, <0 on error
  *
  */
-int generate_from_cpdf(int32_t* cpdf_values, int32_t* cpdf_weights, size_t cpdf_elem_count, int32_t* sample_buffer, const size_t buffer_elem_count);
+int generate_from_cpdf(int32_t* cpdf_values, uint32_t* cpdf_weights, size_t cpdf_elem_count, int32_t* sample_buffer, const size_t buffer_elem_count);
 
 
 /**
@@ -87,8 +87,8 @@ int generate_from_cpdf(int32_t* cpdf_values, int32_t* cpdf_weights, size_t cpdf_
  * @param y_elem_count Number of elements in the 3rd and 4th arguments.
  * @return int 0 on success, <0 on error, >0 on warning
  */
-int multiply_pdfs(const int32_t* x_values, int32_t* x_weights,
-                  const int32_t* y_values, const int32_t* y_weights,
+int multiply_pdfs(const int32_t* x_values, uint32_t* x_weights,
+                  const int32_t* y_values, const uint32_t* y_weights,
                   size_t x_elem_count, size_t y_elem_count);
 
 }
