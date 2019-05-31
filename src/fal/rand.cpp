@@ -1,6 +1,9 @@
 #include "buildcntrl.hpp"
 #include "fal/rand.hpp"
 
+#ifndef max
+#define max(a, b) ((a) > (b) ? (a) : (b))
+#endif
 
 #if defined(TARGET_DEV_LINUX_AMD64)
 namespace fal{
@@ -53,6 +56,39 @@ int generate_from_cpdf(int32_t* cpdf_values, int32_t* cpdf_weights, const size_t
     }
 
     return 0;
+}
+
+int multiply_pdfs(const int32_t* x_values, int32_t* x_weights,
+                  const int32_t* y_values, const int32_t* y_weights,
+                  size_t x_elem_count, size_t y_elem_count){
+
+    size_t y_low_index = 0;
+    size_t y_high_index = 1;
+    size_t x_index = 0;
+
+    if(y_elem_count == 1){
+        return -1;
+    }
+
+    for(; x_index < x_elem_count; x_index++){
+        if(x_values[x_index] > y_values[y_high_index] &&
+            y_high_index < y_elem_count-1){
+
+            y_low_index++;
+            y_high_index++;
+        }
+
+        x_weights[x_index] *= max(
+            (y_weights[y_high_index] - y_weights[y_low_index])*
+            (x_values[x_index]-y_values[y_low_index]) /
+            (y_values[y_high_index]-y_values[y_low_index]) +
+            y_weights[y_low_index],
+            0
+        );
+    }
+
+    return 0;
+
 }
 }
 }
