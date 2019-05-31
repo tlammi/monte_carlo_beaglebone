@@ -1,18 +1,19 @@
 #include "catch2/catch.hpp"
 
+#include <sstream>
 
 //#include "fal/rand.hpp"
 #include "src/fal/rand.cpp"
 
 TEST_CASE("Test binary search") {
 
-    int32_t test_arr[100];
+    uint32_t test_arr[100];
 
-    for(int32_t i=0; i < 100; i++){
+    for(uint32_t i=0; i < 100; i++){
         test_arr[i] = -50 + i*2;
     }
 
-    int32_t* result = fal::rand::binary_search(-50, test_arr, test_arr+99);
+    uint32_t* result = fal::rand::binary_search(-50, test_arr, test_arr+99);
     REQUIRE(result == test_arr);
     result = fal::rand::binary_search(-49, test_arr, test_arr+99);
     REQUIRE(result == test_arr);
@@ -67,7 +68,7 @@ TEST_CASE("Test generate_from_cpdf") {
     const size_t GENERATED_SAMPLE_COUNT = 10000;
 
     int32_t cpdf_values[CPDF_SAMPLES];
-    int32_t cpdf_weigths[CPDF_SAMPLES];
+    uint32_t cpdf_weigths[CPDF_SAMPLES];
     // Uniform pdf from 0 to 1000
     for(size_t i=0; i <CPDF_SAMPLES; i++){
         cpdf_values[i] = i;
@@ -86,4 +87,33 @@ TEST_CASE("Test generate_from_cpdf") {
 
     INFO("average: " << average);
     REQUIRE(average == Approx(500).epsilon(0.01));
+}
+
+TEST_CASE("Test multiply pdfs", "[multiply][pdf]") {
+    int32_t y_vals[] = {1,2,10,15};
+    uint32_t y_weights[] = {1, 4, 20, 5};
+    int32_t x_vals[] = {-100, -1, 1, 2, 3, 7, 11, 14, 15, 16, 100};
+    uint32_t x_weights[] = {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000};
+
+    uint32_t expected[] = {0, 0, 1000, 4000, 6000, 14000, 17000, 8000, 5000, 2000, 0};
+
+    int res = fal::rand::multiply_pdfs(x_vals, x_weights, y_vals, y_weights, 11, 4);
+
+    std::stringstream s;
+    s << "[";
+    for(size_t i=0; i < 11; i++){
+        s << x_weights[i];
+        if(i == 10){
+            s << "]";
+        }
+        else {
+            s << ", ";
+        }
+    }
+
+    INFO("result: \n" << s.str());
+
+    for(size_t i=0; i<11; i++){
+        REQUIRE(x_weights[i] == expected[i]);
+    }
 }
