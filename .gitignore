@@ -1,8 +1,7 @@
 .vscode/
 bin/
 build/
-html/
-latex/
+docs/
 include/buildcntrl.hpp
 CMakeFiles/
 CMakeCache.txt
